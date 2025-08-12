@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
+import path from "path";
 import { Sequelize } from "sequelize";
 
 dotenv.config();
@@ -11,9 +12,12 @@ import UserRoutes from "./Routes/UserRoutes.js";
 const app = express();
 app.use(express.json());
 
+
 app.use(morgan("combined"));
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+// Dùng thư mục /uploads như static file
+app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
 
 
 const sequelize = new Sequelize(
