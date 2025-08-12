@@ -1,14 +1,13 @@
-// models/User.js
 import { Model, DataTypes } from "sequelize";
-import sequelize from "../config/db.js";
+import sequelize from "../config/db.js"; // instance sequelize đã khởi tạo sẵn
 import bcrypt from "bcrypt";
 
 class User extends Model {
   static associate(models) {
-    User.hasMany(models.Review, {
-      foreignKey: "user_id",
-      as: "reviews",
-    });
+    // User.hasMany(models.Review, {
+    //   foreignKey: "user_id",
+    //   as: "reviews",
+    // });
   }
 
   static async hashPassword(password) {
@@ -71,13 +70,13 @@ User.init(
   }
 );
 
-User.beforeCreate(async (user, options) => {
+User.beforeCreate(async (user) => {
   if (user.password) {
     user.password = await User.hashPassword(user.password);
   }
 });
 
-User.beforeUpdate(async (user, options) => {
+User.beforeUpdate(async (user) => {
   if (user.password && user.password !== user._previousDataValues.password) {
     user.password = await User.hashPassword(user.password);
   }

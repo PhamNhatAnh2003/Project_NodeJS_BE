@@ -1,11 +1,20 @@
 import dotenv from "dotenv";
 import express from "express";
+import morgan from "morgan";
+import cors from "cors";
 import { Sequelize } from "sequelize";
 
 dotenv.config();
 
+import UserRoutes from "./Routes/UserRoutes.js";
+
 const app = express();
 app.use(express.json());
+
+app.use(morgan("combined"));
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
+
 
 const sequelize = new Sequelize(
   process.env.DB_NAME,
@@ -26,6 +35,8 @@ sequelize
 app.get("/", (req, res) => {
   res.send("Server running with MySQL!");
 });
+
+app.use("/api/users", UserRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log(`🚀 Server is running on port ${process.env.PORT}`);
