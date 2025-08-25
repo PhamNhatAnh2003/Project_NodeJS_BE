@@ -1,19 +1,23 @@
 import sequelize from "../config/db.js"; // import instance sequelize
 import User from "./User.js"; // class User đã init rồi
-import initCategory from "./Category.js";
-import initTransaction from "./Transaction.js";
-import initBudget from "./Budgets.js";
+import initJob from "./Job.js"
+import initFavorite from "./Favorite.js"
+import initReview from "./Review.js";
+import initApply from "./Apply.js"
 
 // Các model phải được khởi tạo với instance sequelize
-const Category = initCategory(sequelize);
-const Transaction = initTransaction(sequelize);
-const Budget = initBudget(sequelize);
+
+const Job = initJob(sequelize);
+const Favorite = initFavorite(sequelize);
+const Review  = initReview(sequelize);
+const Apply  = initApply(sequelize);
 
 const models = {
   User,
-  Category,
-  Transaction,
-  Budget,
+  Job,
+  Favorite,
+  Review,
+  Apply,
 };
 
 // Gọi associate sau khi các model đã có mặt

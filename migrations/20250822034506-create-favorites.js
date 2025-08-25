@@ -1,40 +1,44 @@
-"use strict";
+'use strict';
 
 /** @type {import('sequelize-cli').Migration} */
 export async function up(queryInterface, Sequelize) {
-  await queryInterface.createTable("categories", {
+  await queryInterface.createTable("favorites", {
     id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true,
+      allowNull: false,
     },
     user_id: {
       type: Sequelize.INTEGER,
       allowNull: false,
-      references: { model: "users", key: "id" },
+      references: {
+        model: "users", // Tên bảng User
+        key: "id",
+      },
       onDelete: "CASCADE",
     },
-    name: {
-      type: Sequelize.STRING(100),
+    job_id: {
+      type: Sequelize.INTEGER,
       allowNull: false,
-    },
-    type: {
-      type: Sequelize.ENUM("income", "expense"),
-      allowNull: false,
+      references: {
+        model: "jobs", // Tên bảng Job
+        key: "id",
+      },
+      onDelete: "CASCADE",
     },
     createdAt: {
-      allowNull: false,
       type: Sequelize.DATE,
-      defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+      allowNull: false,
     },
     updatedAt: {
-      allowNull: false,
       type: Sequelize.DATE,
-      defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+      allowNull: false,
     },
   });
 }
 
 export async function down(queryInterface, Sequelize) {
-  await queryInterface.dropTable("categories");
+  await queryInterface.dropTable("favorites");
 }
+

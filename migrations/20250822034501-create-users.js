@@ -5,8 +5,8 @@ export async function up(queryInterface, Sequelize) {
   await queryInterface.createTable("users", {
     id: {
       type: Sequelize.INTEGER,
-      primaryKey: true,
       autoIncrement: true,
+      primaryKey: true,
     },
     username: {
       type: Sequelize.STRING(255),
@@ -31,19 +31,17 @@ export async function up(queryInterface, Sequelize) {
     },
     phone: {
       type: Sequelize.STRING(15),
-      unique: true,
       allowNull: true,
+      unique: true,
     },
     email: {
       type: Sequelize.STRING(100),
       allowNull: true,
       unique: true,
-      validate: {
-        isEmail: true,
-      },
     },
   });
 }
+
 export async function down(queryInterface, Sequelize) {
   await queryInterface.dropTable("users");
 }

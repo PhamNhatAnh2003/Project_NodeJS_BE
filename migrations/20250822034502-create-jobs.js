@@ -1,50 +1,51 @@
-"use strict";
+'use strict';
 
 /** @type {import('sequelize-cli').Migration} */
 export async function up(queryInterface, Sequelize) {
-  await queryInterface.createTable("transactions", {
+  await queryInterface.createTable("jobs", {
     id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true,
-    },
-    user_id: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-      references: { model: "users", key: "id" },
-      onDelete: "CASCADE",
-    },
-    category_id: {
-      type: Sequelize.INTEGER,
-      allowNull: true,
-      references: { model: "categories", key: "id" },
-      onDelete: "SET NULL",
-    },
-    amount: {
-      type: Sequelize.DECIMAL(15, 2),
       allowNull: false,
     },
-    note: {
+    name: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    description: {
       type: Sequelize.TEXT,
       allowNull: true,
     },
-    date: {
-      type: Sequelize.DATEONLY,
+    jobType: {
+      type: Sequelize.TEXT,
       allowNull: false,
     },
-    createdAt: {
+    jobCategory: {
+      type: Sequelize.TEXT,
       allowNull: false,
+    },
+    salary: {
+      type: Sequelize.DECIMAL(15, 2),
+      allowNull: true,
+    },
+    location: {
+      type: Sequelize.STRING,
+      allowNull: true,
+    },
+    createdAt: {
       type: Sequelize.DATE,
+      allowNull: false,
       defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
     },
     updatedAt: {
-      allowNull: false,
       type: Sequelize.DATE,
+      allowNull: false,
       defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
     },
   });
 }
 
 export async function down(queryInterface, Sequelize) {
-  await queryInterface.dropTable("transactions");
+  await queryInterface.dropTable("jobs");
 }

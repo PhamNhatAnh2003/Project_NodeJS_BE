@@ -4,10 +4,22 @@ import bcrypt from "bcrypt";
 
 class User extends Model {
   static associate(models) {
-    // User.hasMany(models.Review, {
-    //   foreignKey: "user_id",
-    //   as: "reviews",
-    // });
+    User.hasMany(models.Review, {
+      foreignKey: "user_id",
+      as: "reviews",
+    });
+
+    User.hasMany(models.Favorite, {
+      foreignKey: "user_id",
+      as: "favorites",
+    });
+    
+    User.belongsToMany(models.Job, {
+      through: models.Apply, // bảng trung gian
+      foreignKey: "user_id",
+      otherKey: "job_id",
+      as: "appliedJobs",
+    });
   }
 
   static async hashPassword(password) {

@@ -8,6 +8,7 @@ import { Sequelize } from "sequelize";
 dotenv.config();
 
 import UserRoutes from "./Routes/UserRoutes.js";
+import JobRoutes from "./Routes/JobRoutes.js"
 
 const app = express();
 app.use(express.json());
@@ -42,6 +43,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/users", UserRoutes);
+app.use("/api/jobs", JobRoutes);
+
 
 app.listen(process.env.PORT, () => {
   console.log(`🚀 Server is running on port ${process.env.PORT}`);
